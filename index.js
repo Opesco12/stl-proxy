@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(
-  "/API/v1",
+  "/api/v1",
   proxy("https://xfund.stlassetmgt.com:10443", {
     proxyReqPathResolver: (req) => {
       console.log("Resolving path:", req.url);
@@ -24,8 +24,8 @@ app.use(
       return proxyReqOpts;
     },
     proxyReqBodyDecorator: (bodyContent, srcReq) => {
-      console.log("Proxying request:", srcReq.method, srcReq.url);
-      console.log("Headers:", JSON.stringify(srcReq.headers, null, 2));
+      //   console.log("Proxying request:", srcReq.method, srcReq.url);
+      //   console.log("Headers:", JSON.stringify(srcReq.headers, null, 2));
 
       if (bodyContent) {
         let parsedBody;
@@ -42,20 +42,20 @@ app.use(
             return bodyContent;
           }
         }
-        console.log("Parsed body:", JSON.stringify(parsedBody, null, 2));
+        // console.log("Parsed body:", JSON.stringify(parsedBody, null, 2));
         return JSON.stringify(parsedBody);
       } else {
-        console.log("No body content");
+        // console.log("No body content");
         return bodyContent;
       }
     },
     userResDecorator: (proxyRes, proxyResData, userReq, userRes) => {
-      console.log("Response status:", proxyRes.statusCode);
-      console.log(
-        "Response headers:",
-        JSON.stringify(proxyRes.headers, null, 2)
-      );
-      console.log("Response data:", proxyResData.toString("utf8"));
+      //   console.log("Response status:", proxyRes.statusCode);
+      //   console.log(
+      //     "Response headers:",
+      //     JSON.stringify(proxyRes.headers, null, 2)
+      //   );
+      //   console.log("Response data:", proxyResData.toString("utf8"));
       return proxyResData;
     },
   })

@@ -90,3 +90,4 @@ typings/
 
 # Windows
 Thumbs.db
+.vercel
